@@ -1,0 +1,74 @@
+<div class="container">
+  <nav class="navbar">
+    <ul class="nav-list">
+      <li class="nav-item" [class.active]="activeSection() === 'about'" (click)="scrollToSection('about')">About</li>
+      <li class="nav-item" [class.active]="activeSection() === 'experience'" (click)="scrollToSection('experience')">
+        Experience</li>
+      <li class="nav-item" [class.active]="activeSection() === 'education'" (click)="scrollToSection('education')">
+        Education</li>
+      <li class="nav-item" [class.active]="activeSection() === 'skills'" (click)="scrollToSection('skills')">Skills</li>
+    </ul>
+  </nav>
+
+  <header class="header">
+    <img [src]="profile.avatarUrl" alt="{{ profile.name }}" class="profile-img" (error)="onImageError($event)">
+
+    <h1>{{ profile.name }}</h1>
+    <p>{{ profile.title }}</p>
+    <div class="contact-info">
+      <div class="contact-item">
+        <span class="contact-label">📍</span>
+        <span>{{ profile.postalCode }}</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">✉️</span>
+        <a href="mailto:{{ profile.email }}" class="contact-link">{{ profile.email }}</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">💼</span>
+        <a [href]="profile.linkedinUrl" target="_blank" class="contact-link">{{ profile.linkedinShort }}</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="about" class="section" [class.visible]="visibleSections['about']">
+    <h2>About Me</h2>
+    <div class="about-content">
+      <p>{{ profile.about }}</p>
+    </div>
+  </section>
+
+  <section id="experience" class="section" [class.visible]="visibleSections['experience']">
+    <h2>Professional Experience</h2>
+    <div class="experience-item" *ngFor="let exp of profile.experience">
+      <h3>{{ exp.position }}</h3>
+      <div class="company">{{ exp.company }}</div>
+      <div class="date">{{ exp.period }}</div>
+      <ul>
+        <li *ngFor="let desc of exp.descriptions">{{ desc }}</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="education" class="section" [class.visible]="visibleSections['education']">
+    <h2>Education</h2>
+    <div class="education-item" *ngFor="let edu of profile.education">
+      <h3>{{ edu.degree }}</h3>
+      <div class="school">{{ edu.school }}</div>
+      <div class="date">{{ edu.year }}</div>
+      <p *ngIf="edu.description">{{ edu.description }}</p>
+    </div>
+  </section>
+
+  <section id="skills" class="section" [class.visible]="visibleSections['skills']">
+    <h2>Skills & Expertise</h2>
+    <div class="skills-grid">
+      <div class="skill-category" *ngFor="let category of profile.skills">
+        <h4>{{ category.name }}</h4>
+        <div class="skill-item" *ngFor="let skill of category.items">
+          <span>{{skill.icon}}</span><span>{{ skill.name }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
