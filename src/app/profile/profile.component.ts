@@ -210,7 +210,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   private setupIntersectionObserver(): void {
     const sections = document.querySelectorAll('.section');
     const options = {
-      threshold: 0.3,
+      threshold: 0.001,
       rootMargin: '-50px 0px',
     };
 
